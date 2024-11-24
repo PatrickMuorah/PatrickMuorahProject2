@@ -42,6 +42,7 @@ namespace PatrickMuorahProject2
             oneMin_btn = new Button();
             twoMin_btn = new Button();
             threeMin_btn = new Button();
+            resetHighScore_btn = new Button();
             SuspendLayout();
             // 
             // letters_lbl
@@ -91,16 +92,16 @@ namespace PatrickMuorahProject2
             // 
             // exit_btn
             // 
-            exit_btn.Location = new Point(46, 260);
+            exit_btn.Location = new Point(12, 260);
             exit_btn.Name = "exit_btn";
-            exit_btn.Size = new Size(75, 23);
+            exit_btn.Size = new Size(110, 23);
             exit_btn.TabIndex = 5;
             exit_btn.Text = "Exit";
             exit_btn.UseVisualStyleBackColor = true;
             // 
             // submit_btn
             // 
-            submit_btn.Location = new Point(371, 260);
+            submit_btn.Location = new Point(371, 274);
             submit_btn.Name = "submit_btn";
             submit_btn.Size = new Size(75, 23);
             submit_btn.TabIndex = 6;
@@ -120,9 +121,9 @@ namespace PatrickMuorahProject2
             // 
             // highScore_btn
             // 
-            highScore_btn.Location = new Point(46, 203);
+            highScore_btn.Location = new Point(12, 202);
             highScore_btn.Name = "highScore_btn";
-            highScore_btn.Size = new Size(75, 23);
+            highScore_btn.Size = new Size(110, 23);
             highScore_btn.TabIndex = 8;
             highScore_btn.Text = "High Score";
             highScore_btn.UseVisualStyleBackColor = true;
@@ -167,11 +168,22 @@ namespace PatrickMuorahProject2
             threeMin_btn.UseVisualStyleBackColor = true;
             threeMin_btn.Click += threeMin_btn_Click;
             // 
+            // resetHighScore_btn
+            // 
+            resetHighScore_btn.Location = new Point(12, 231);
+            resetHighScore_btn.Name = "resetHighScore_btn";
+            resetHighScore_btn.Size = new Size(110, 23);
+            resetHighScore_btn.TabIndex = 13;
+            resetHighScore_btn.Text = "Reset High Score";
+            resetHighScore_btn.UseVisualStyleBackColor = true;
+            resetHighScore_btn.Click += resetHighScore_btn_Click;
+            // 
             // TextTwistMainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(547, 328);
+            Controls.Add(resetHighScore_btn);
             Controls.Add(threeMin_btn);
             Controls.Add(twoMin_btn);
             Controls.Add(oneMin_btn);
@@ -207,5 +219,6 @@ namespace PatrickMuorahProject2
         private Button oneMin_btn;
         private Button twoMin_btn;
         private Button threeMin_btn;
+        private Button resetHighScore_btn;
     }
 }

@@ -14,6 +14,10 @@ namespace PatrickMuorahProject2
         private Timer gameTimer;
         private int remainingTime; // In seconds
         private int gameDuration = 60; // Default to 1 minute
+        private int currentScore; // To track the player's score during the game
+        private int timerMinutes; // To track the remaining minutes in the timer
+        private int timerSeconds; // To track the remaining seconds in the timer
+
 
 
         public TextTwistMainForm()
@@ -80,10 +84,7 @@ namespace PatrickMuorahProject2
         }
 
 
-        private void highScore_btn_Click(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
+       
 
         private void submit_btn_Click(object sender, EventArgs e)
         {
@@ -335,5 +336,107 @@ namespace PatrickMuorahProject2
             // Update the label with shuffled letters
             letters_lbl.Text = string.Join(" ", letters);
         }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            if (timerSeconds == 0)
+            {
+                if (timerMinutes == 0)
+                {
+                    // Stop the timer when time is up
+                    gameTimer.Stop();
+
+                    // Call EndGame to finalize the game
+                    EndGame();
+                }
+                else
+                {
+                    // Decrease the minutes and reset seconds to 59
+                    timerMinutes--;
+                    timerSeconds = 59;
+                }
+            }
+            else
+            {
+                // Decrease seconds
+                timerSeconds--;
+            }
+
+        }
+
+
+        private void SaveHighScore(HighScore highScore)
+        {
+            string filePath = "C:\\Users\\Muorah Patrick\\source\\repos\\PatrickMuorahProject2\\PatrickMuorahProject2\\highscores.txt";
+            string entry = $"{highScore.Name},{highScore.Score},{highScore.Time}";
+            File.AppendAllText(filePath, entry + Environment.NewLine);
+        }
+
+        private List<HighScore> LoadHighScores()
+        {
+            string filePath = "highscores.txt";
+            var highScores = new List<HighScore>();
+
+            if (File.Exists(filePath))
+            {
+                var lines = File.ReadAllLines(filePath);
+                foreach (var line in lines)
+                {
+                    var parts = line.Split(',');
+                    if (parts.Length == 3)
+                    {
+                        string name = parts[0];
+                        int score = int.Parse(parts[1]);
+                        string time = parts[2];
+                        highScores.Add(new HighScore(name, score, time));
+                    }
+                }
+            }
+            return highScores;
+        }
+
+        private void ResetHighScores()
+        {
+            string filePath = "C:\\Users\\Muorah Patrick\\source\\repos\\PatrickMuorahProject2\\PatrickMuorahProject2\\highscores.txt";
+            File.WriteAllText(filePath, string.Empty); // Clears the file
+        }
+
+        private void highScore_btn_Click(object sender, EventArgs e)
+        {
+            var highScores = LoadHighScores();
+            string display = string.Join(Environment.NewLine, highScores.Select(hs => hs.ToString()));
+            MessageBox.Show(display == string.Empty ? "No high scores yet!" : display, "High Scores");
+        }
+
+        private void resetHighScore_btn_Click(object sender, EventArgs e)
+        {
+            ResetHighScores();
+            MessageBox.Show("High scores have been reset!", "Reset High Scores");
+        }
+
+        private void EndGame()
+        {
+            // Example: Prompt for player's name
+            string playerName = PromptForPlayerName(); // Implement a simple input dialog
+            int finalScore = currentScore; // Assume `currentScore` is tracking the player's score
+            string gameTime = $"{timerMinutes:D2}:{timerSeconds:D2}"; // Assume `timerMinutes` and `timerSeconds` track the remaining time
+
+            // Create a new HighScore object
+            HighScore newHighScore = new HighScore(playerName, finalScore, gameTime);
+
+            // Save the high score
+            SaveHighScore(newHighScore);
+
+            // Show the summary to the user
+            MessageBox.Show($"Game Over!\nName: {playerName}\nScore: {finalScore}\nTime: {gameTime}", "Game Summary");
+        }
+
+        private string PromptForPlayerName()
+        {
+            string name = Microsoft.VisualBasic.Interaction.InputBox("Enter your name:", "Player Name", "Player");
+            return string.IsNullOrWhiteSpace(name) ? "Anonymous" : name;
+        }
+
+
     }
 }
