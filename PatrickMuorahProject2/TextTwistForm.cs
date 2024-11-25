@@ -384,14 +384,6 @@ namespace PatrickMuorahProject2
             letters_lbl.Text = string.Join(" ", letters);
         }
 
-
-        private void SaveHighScore(HighScore highScore)
-        {
-            string filePath = "C:\\Users\\Muorah Patrick\\source\\repos\\PatrickMuorahProject2\\PatrickMuorahProject2\\highscores.txt";
-            string entry = $"{highScore.Name},{highScore.Score},{highScore.Time}";
-            File.AppendAllText(filePath, entry + Environment.NewLine);
-        }
-
         private List<HighScore> LoadHighScores()
         {
             string filePath = "highscores.txt";
