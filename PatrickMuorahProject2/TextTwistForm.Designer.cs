@@ -80,7 +80,7 @@ namespace PatrickMuorahProject2
             newGame_btn.TabIndex = 3;
             newGame_btn.Text = "New Game";
             newGame_btn.UseVisualStyleBackColor = true;
-            newGame_btn.Click += newGame_btn_Click;
+            newGame_btn.Click += NewGame_btn_Click;
             // 
             // input_textBox
             // 
@@ -97,7 +97,7 @@ namespace PatrickMuorahProject2
             exit_btn.TabIndex = 5;
             exit_btn.Text = "Exit";
             exit_btn.UseVisualStyleBackColor = true;
-            exit_btn.Click += exit_btn_Click;
+            exit_btn.Click += Exit_btn_Click;
             // 
             // submit_btn
             // 
@@ -107,7 +107,7 @@ namespace PatrickMuorahProject2
             submit_btn.TabIndex = 6;
             submit_btn.Text = "Submit";
             submit_btn.UseVisualStyleBackColor = true;
-            submit_btn.Click += submit_btn_Click;
+            submit_btn.Click += Submit_btn_Click;
             // 
             // twist_btn
             // 
@@ -117,7 +117,7 @@ namespace PatrickMuorahProject2
             twist_btn.TabIndex = 7;
             twist_btn.Text = "Shuffle";
             twist_btn.UseVisualStyleBackColor = true;
-            twist_btn.Click += twist_btn_Click;
+            twist_btn.Click += Twist_btn_Click;
             // 
             // highScore_btn
             // 
@@ -127,7 +127,7 @@ namespace PatrickMuorahProject2
             highScore_btn.TabIndex = 8;
             highScore_btn.Text = "High Score";
             highScore_btn.UseVisualStyleBackColor = true;
-            highScore_btn.Click += highScore_btn_Click;
+            highScore_btn.Click += HighScore_btn_Click;
             // 
             // score_lbl
             // 
@@ -146,7 +146,7 @@ namespace PatrickMuorahProject2
             oneMin_btn.TabIndex = 10;
             oneMin_btn.Text = "One Minute";
             oneMin_btn.UseVisualStyleBackColor = true;
-            oneMin_btn.Click += oneMin_btn_Click;
+            oneMin_btn.Click += OneMin_btn_Click;
             // 
             // twoMin_btn
             // 
@@ -156,7 +156,7 @@ namespace PatrickMuorahProject2
             twoMin_btn.TabIndex = 11;
             twoMin_btn.Text = "Two Minutes";
             twoMin_btn.UseVisualStyleBackColor = true;
-            twoMin_btn.Click += twoMin_btn_Click;
+            twoMin_btn.Click += TwoMin_btn_Click;
             // 
             // threeMin_btn
             // 
@@ -166,7 +166,7 @@ namespace PatrickMuorahProject2
             threeMin_btn.TabIndex = 12;
             threeMin_btn.Text = "Three Minutes";
             threeMin_btn.UseVisualStyleBackColor = true;
-            threeMin_btn.Click += threeMin_btn_Click;
+            threeMin_btn.Click += ThreeMin_btn_Click;
             // 
             // resetHighScore_btn
             // 
@@ -176,7 +176,7 @@ namespace PatrickMuorahProject2
             resetHighScore_btn.TabIndex = 13;
             resetHighScore_btn.Text = "Reset High Score";
             resetHighScore_btn.UseVisualStyleBackColor = true;
-            resetHighScore_btn.Click += resetHighScore_btn_Click;
+            resetHighScore_btn.Click += ResetHighScore_btn_Click;
             // 
             // TextTwistMainForm
             // 

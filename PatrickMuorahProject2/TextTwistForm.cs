@@ -17,7 +17,6 @@ namespace PatrickMuorahProject2
         private Timer gameTimer;
         private int remainingTime;
         private int gameDuration = 60;
-        private int currentScore;
 
 
 
@@ -94,7 +93,7 @@ namespace PatrickMuorahProject2
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void submit_btn_Click(object sender, EventArgs e)
+        private void Submit_btn_Click(object sender, EventArgs e)
         {
             string word = input_textBox.Text.Trim();
             List<char> currentLetters = letters_lbl.Text.Replace(" ", "").ToCharArray().ToList();
@@ -141,7 +140,7 @@ namespace PatrickMuorahProject2
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void newGame_btn_Click(object sender, EventArgs e)
+        private void NewGame_btn_Click(object sender, EventArgs e)
         {
             DisplayRandomLetters();
 
@@ -337,7 +336,7 @@ namespace PatrickMuorahProject2
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void oneMin_btn_Click(object sender, EventArgs e)
+        private void OneMin_btn_Click(object sender, EventArgs e)
         {
             gameDuration = 60;
             timer_lbl.Text = "Time: 01:00";
@@ -348,7 +347,7 @@ namespace PatrickMuorahProject2
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void twoMin_btn_Click(object sender, EventArgs e)
+        private void TwoMin_btn_Click(object sender, EventArgs e)
         {
             gameDuration = 120;
             timer_lbl.Text = "Time: 02:00";
@@ -359,7 +358,7 @@ namespace PatrickMuorahProject2
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void threeMin_btn_Click(object sender, EventArgs e)
+        private void ThreeMin_btn_Click(object sender, EventArgs e)
         {
             gameDuration = 180;
             timer_lbl.Text = "Time: 03:00";
@@ -370,7 +369,7 @@ namespace PatrickMuorahProject2
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void twist_btn_Click(object sender, EventArgs e)
+        private void Twist_btn_Click(object sender, EventArgs e)
         {
             var letters = letters_lbl.Text.Replace(" ", "").ToCharArray().ToList();
 
@@ -425,7 +424,7 @@ namespace PatrickMuorahProject2
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void highScore_btn_Click(object sender, EventArgs e)
+        private void HighScore_btn_Click(object sender, EventArgs e)
         {
             var highScores = LoadHighScores();
             string display = string.Join(Environment.NewLine, highScores.Select(hs => hs.ToString()));
@@ -437,7 +436,7 @@ namespace PatrickMuorahProject2
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void resetHighScore_btn_Click(object sender, EventArgs e)
+        private void ResetHighScore_btn_Click(object sender, EventArgs e)
         {
             ResetHighScores();
             MessageBox.Show("High scores have been reset!", "Reset High Scores");
@@ -448,7 +447,7 @@ namespace PatrickMuorahProject2
         /// </summary>
         /// <param name="sender">The source of the event (the exit button).</param>
         /// <param name="e">Event data for the button click event.</param>
-        private void exit_btn_Click(object sender, EventArgs e)
+        private void Exit_btn_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
