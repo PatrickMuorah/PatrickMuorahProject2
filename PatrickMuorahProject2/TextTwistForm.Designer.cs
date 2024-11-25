@@ -97,6 +97,7 @@ namespace PatrickMuorahProject2
             exit_btn.TabIndex = 5;
             exit_btn.Text = "Exit";
             exit_btn.UseVisualStyleBackColor = true;
+            exit_btn.Click += exit_btn_Click;
             // 
             // submit_btn
             // 

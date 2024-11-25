@@ -15,10 +15,10 @@ namespace PatrickMuorahProject2
         private List<Words> validWordEntries = new List<Words>();
         private List<Words> invalidWordEntries = new List<Words>();
         private Timer gameTimer;
-        private int remainingTime; 
-        private int gameDuration = 60; 
+        private int remainingTime;
+        private int gameDuration = 60;
         private int currentScore;
-      
+
 
 
         /// <summary>
@@ -443,5 +443,14 @@ namespace PatrickMuorahProject2
             MessageBox.Show("High scores have been reset!", "Reset High Scores");
         }
 
+        /// <summary>
+        /// Closes the application and exits the game.
+        /// </summary>
+        /// <param name="sender">The source of the event (the exit button).</param>
+        /// <param name="e">Event data for the button click event.</param>
+        private void exit_btn_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }
