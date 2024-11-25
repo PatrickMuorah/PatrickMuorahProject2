@@ -385,9 +385,9 @@ namespace PatrickMuorahProject2
         }
 
         /// <summary>
-        /// 
+        /// Loads the highest scores of a player attempts.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A list of a player's highest scores</returns>
         private List<HighScore> LoadHighScores()
         {
             string filePath = "C:\\Users\\Muorah Patrick\\source\\repos\\PatrickMuorahProject2\\PatrickMuorahProject2\\highscores.txt";
@@ -411,19 +411,32 @@ namespace PatrickMuorahProject2
             return highScores;
         }
 
+        /// <summary>
+        /// Resets a player's saved highscores.
+        /// </summary>
         private void ResetHighScores()
         {
             string filePath = "C:\\Users\\Muorah Patrick\\source\\repos\\PatrickMuorahProject2\\PatrickMuorahProject2\\highscores.txt";
-            File.WriteAllText(filePath, string.Empty); // Clears the file
+            File.WriteAllText(filePath, string.Empty);
         }
 
+        /// <summary>
+        /// Displays the high score board.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void highScore_btn_Click(object sender, EventArgs e)
         {
             var highScores = LoadHighScores();
             string display = string.Join(Environment.NewLine, highScores.Select(hs => hs.ToString()));
-            MessageBox.Show(display == string.Empty ? "No high scores yet!" : display, "High Scores");
+            MessageBox.Show(display == string.Empty ? "Upload high score!" : display, "High Scores");
         }
 
+        /// <summary>
+        /// Resets the highscore board.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void resetHighScore_btn_Click(object sender, EventArgs e)
         {
             ResetHighScores();
