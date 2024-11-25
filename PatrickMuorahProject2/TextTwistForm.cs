@@ -156,13 +156,19 @@ namespace PatrickMuorahProject2
             score_lbl.Text = "Score: 0";
         }
 
+        /// <summary>
+        /// Displays random letters for users to create words from.
+        /// </summary>
         private void DisplayRandomLetters()
         {
             var letters = GenerateRandomLetters();
             letters_lbl.Text = string.Join(" ", letters);
         }
 
-        // Method to generate random letters
+        /// <summary>
+        /// Displays random letters that'd be displayed to the player.
+        /// </summary>
+        /// <returns></returns>
         private List<char> GenerateRandomLetters()
         {
             var random = new Random();
@@ -173,13 +179,16 @@ namespace PatrickMuorahProject2
             {
                 int index = random.Next(letterBag.Count);
                 randomLetters.Add(letterBag[index]);
-                letterBag.RemoveAt(index); // Remove to avoid duplicates
+                letterBag.RemoveAt(index);
             }
-
             return randomLetters;
         }
 
-        // Method to create the letter bag
+        /// <summary>
+        /// This method contains a list of characters, each representing a letter that will be available to the 
+        /// player during the game. 
+        /// </summary>
+        /// <returns>A list of characters with specified frequencies representing a letter bag.</returns>
         private List<char> CreateLetterBag()
         {
             var letterBag = new List<char>();
@@ -213,7 +222,12 @@ namespace PatrickMuorahProject2
             return letterBag;
         }
 
-        // Helper method to add letters to the bag
+        /// <summary>
+        /// Helper method to add letters to the Letter bag.
+        /// </summary>
+        /// <param name="bag"></param>
+        /// <param name="letter"></param>
+        /// <param name="count"></param>
         private void AddLetters(List<char> bag, char letter, int count)
         {
             for (int i = 0; i < count; i++)
@@ -222,24 +236,28 @@ namespace PatrickMuorahProject2
             }
         }
 
+        /// <summary>
+        /// Method to check if player entered a valid word.
+        /// </summary>
+        /// <param name="word"></param>
+        /// <param name="displayedLetters"></param>
+        /// <returns>True if the word is valid, otherwise false.</returns>
         private bool IsValidWord(string word, List<char> displayedLetters)
         {
             if (dictionary == null)
             {
-                feedback_lbl.Text = "Dictionary not loaded.";
+                feedback_lbl.Text = "Dictionary is null.";
                 return false;
             }
 
             word = word.ToLower();
 
-            // Rule 1: Word must be at least three letters long
             if (word.Length < 3)
             {
-                feedback_lbl.Text = "Word must be at least 3 letters.";
+                feedback_lbl.Text = "The Word must contain 3 or more letters.";
                 return false;
             }
 
-            // Rule 2: Word must use only displayed letters and each letter once
             var letterCount = new Dictionary<char, int>();
             foreach (char letter in displayedLetters)
             {
@@ -253,23 +271,28 @@ namespace PatrickMuorahProject2
             {
                 if (!letterCount.ContainsKey(letter) || letterCount[letter] <= 0)
                 {
-                    feedback_lbl.Text = "Invalid letters used!";
+                    feedback_lbl.Text = "Invalid letters";
                     return false;
                 }
                 letterCount[letter]--;
             }
 
-            // Rule 3: Word must exist in the dictionary
             if (!dictionary.Contains(word))
             {
-                feedback_lbl.Text = "Word not found in dictionary!";
+                feedback_lbl.Text = "This Word is not in the dictionary!";
                 return false;
             }
 
-            feedback_lbl.Text = "Valid word!";
+            feedback_lbl.Text = "Valid Word!";
             return true;
         }
 
+        /// <summary>
+        /// Calculate the points for a valid word based on its length.
+        /// </summary>
+        /// <param name="word"></param>
+        /// <returns>The points awarded for the word based on its length. 
+        /// Returns 0 if the word length is not valid</returns>
         private int CalculatePoints(string word)
         {
             int length = word.Length;
@@ -280,10 +303,13 @@ namespace PatrickMuorahProject2
                 5 => 250,
                 6 => 360,
                 7 => 490,
-                _ => 0 // No points for words less than 3 letters
+                _ => 0
             };
         }
 
+        /// <summary>
+        /// Method to display the results of the current round in a messagebox.
+        /// </summary>
         private void DisplayRoundResults()
         {
             StringBuilder results = new StringBuilder();
@@ -306,30 +332,48 @@ namespace PatrickMuorahProject2
             MessageBox.Show(results.ToString(), "Round Results", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
+        /// <summary>
+        /// Sets the game timer to 60 seconds, starting the countdown for a round.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void oneMin_btn_Click(object sender, EventArgs e)
         {
-            gameDuration = 60; // 1 minute
+            gameDuration = 60;
             timer_lbl.Text = "Time: 01:00";
         }
 
+        /// <summary>
+        /// Sets the game timer to 120 seconds, starting the countdown for the round.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void twoMin_btn_Click(object sender, EventArgs e)
         {
-            gameDuration = 120; // 2 minutes
+            gameDuration = 120;
             timer_lbl.Text = "Time: 02:00";
         }
 
+        /// <summary>
+        /// Sets the game timer to 180 seconds, starting the countdown for the round.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void threeMin_btn_Click(object sender, EventArgs e)
         {
-            gameDuration = 180; // 3 minutes
+            gameDuration = 180;
             timer_lbl.Text = "Time: 03:00";
         }
 
+        /// <summary>
+        /// Shuffles the random letters.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void twist_btn_Click(object sender, EventArgs e)
         {
-            // Get the current letters
             var letters = letters_lbl.Text.Replace(" ", "").ToCharArray().ToList();
 
-            // Shuffle the letters
             var random = new Random();
             for (int i = letters.Count - 1; i > 0; i--)
             {
@@ -337,35 +381,7 @@ namespace PatrickMuorahProject2
                 (letters[i], letters[j]) = (letters[j], letters[i]);
             }
 
-            // Update the label with shuffled letters
             letters_lbl.Text = string.Join(" ", letters);
-        }
-
-        private void Timer_Tick(object sender, EventArgs e)
-        {
-            if (timerSeconds == 0)
-            {
-                if (timerMinutes == 0)
-                {
-                    // Stop the timer when time is up
-                    gameTimer.Stop();
-
-                    // Call EndGame to finalize the game
-                    EndGame();
-                }
-                else
-                {
-                    // Decrease the minutes and reset seconds to 59
-                    timerMinutes--;
-                    timerSeconds = 59;
-                }
-            }
-            else
-            {
-                // Decrease seconds
-                timerSeconds--;
-            }
-
         }
 
 
@@ -417,30 +433,6 @@ namespace PatrickMuorahProject2
             ResetHighScores();
             MessageBox.Show("High scores have been reset!", "Reset High Scores");
         }
-
-        private void EndGame()
-        {
-            // Example: Prompt for player's name
-            string playerName = PromptForPlayerName(); // Implement a simple input dialog
-            int finalScore = currentScore; // Assume `currentScore` is tracking the player's score
-            string gameTime = $"{timerMinutes:D2}:{timerSeconds:D2}"; // Assume `timerMinutes` and `timerSeconds` track the remaining time
-
-            // Create a new HighScore object
-            HighScore newHighScore = new HighScore(playerName, finalScore, gameTime);
-
-            // Save the high score
-            SaveHighScore(newHighScore);
-
-            // Show the summary to the user
-            MessageBox.Show($"Game Over!\nName: {playerName}\nScore: {finalScore}\nTime: {gameTime}", "Game Summary");
-        }
-
-        private string PromptForPlayerName()
-        {
-            string name = Microsoft.VisualBasic.Interaction.InputBox("Enter your name:", "Player Name", "Player");
-            return string.IsNullOrWhiteSpace(name) ? "Anonymous" : name;
-        }
-
 
     }
 }
