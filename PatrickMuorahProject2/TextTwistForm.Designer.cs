@@ -62,7 +62,6 @@ namespace PatrickMuorahProject2
             feedback_lbl.Size = new Size(57, 15);
             feedback_lbl.TabIndex = 1;
             feedback_lbl.Text = "Feedback";
-            feedback_lbl.Click += feedback_lbl_Click;
             // 
             // timer_lbl
             // 

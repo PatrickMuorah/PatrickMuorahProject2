@@ -4,22 +4,26 @@ using Timer = System.Windows.Forms.Timer;
 
 namespace PatrickMuorahProject2
 {
+    /// <summary>
+    /// Implements a variation of a Text Twist game as a standalone GUI application.
+    /// </summary>
     public partial class TextTwistMainForm : Form
     {
         private int score = 0;
         private HashSet<string> validWords = new HashSet<string>();
-        private HashSet<string> dictionary;
+        private HashSet<string>? dictionary;
         private List<Words> validWordEntries = new List<Words>();
         private List<Words> invalidWordEntries = new List<Words>();
         private Timer gameTimer;
-        private int remainingTime; // In seconds
-        private int gameDuration = 60; // Default to 1 minute
-        private int currentScore; // To track the player's score during the game
-        private int timerMinutes; // To track the remaining minutes in the timer
-        private int timerSeconds; // To track the remaining seconds in the timer
+        private int remainingTime; 
+        private int gameDuration = 60; 
+        private int currentScore;
+      
 
 
-
+        /// <summary>
+        /// Constructor method
+        /// </summary>
         public TextTwistMainForm()
         {
             InitializeComponent();
@@ -27,10 +31,15 @@ namespace PatrickMuorahProject2
             score_lbl.Text = $"Score: {score}";
 
             gameTimer = new Timer();
-            gameTimer.Interval = 1000; // Timer ticks every second
+            gameTimer.Interval = 1000;
             gameTimer.Tick += GameTimer_Tick;
         }
 
+        /// <summary>
+        /// Checks the current time, updates the remaining seconds, and stops the game when the time runs out.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void GameTimer_Tick(object sender, EventArgs e)
         {
             if (remainingTime > 0)
@@ -41,51 +50,50 @@ namespace PatrickMuorahProject2
             else
             {
                 gameTimer.Stop();
-                timer_lbl.Text = "Time's up!";
-                DisplayRoundResults(); // Show the round results
+                timer_lbl.Text = "Your Time is Up!";
+                DisplayRoundResults();
             }
         }
 
-
+        /// <summary>
+        /// Loads the words from the "dictionary.json" file into a HashSet.
+        /// </summary>
         private void LoadDictionary()
         {
-            string filePath = Path.Combine(Application.StartupPath, "C:\\Users\\Muorah Patrick\\source\\repos\\PatrickMuorahProject2\\PatrickMuorahProject2\\dictionary.json");  // Use StartupPath to get the app's directory
+            string filePath = Path.Combine(Application.StartupPath, "C:\\Users\\Muorah Patrick\\source\\repos\\PatrickMuorahProject2\\PatrickMuorahProject2\\dictionary.json");
 
             if (File.Exists(filePath))
             {
-                // Read all text from the file
                 string jsonContent = File.ReadAllText(filePath);
-
-                // Parse the JSON manually
-                jsonContent = jsonContent.Trim(); // Remove any extra spaces
+                jsonContent = jsonContent.Trim();
                 if (jsonContent.StartsWith("[") && jsonContent.EndsWith("]"))
                 {
-                    jsonContent = jsonContent.Substring(1, jsonContent.Length - 2); // Remove square brackets
+                    jsonContent = jsonContent.Substring(1, jsonContent.Length - 2);
                     string[] words = jsonContent.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-
-                    // Clean up quotes and whitespace from each word
                     dictionary = new HashSet<string>(
                         words.Select(word => word.Trim().Trim('\"').ToLower())
                     );
                 }
                 else
                 {
-                    MessageBox.Show("Invalid dictionary format!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Invalid Format", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     dictionary = new HashSet<string>();
                 }
             }
             else
             {
-                MessageBox.Show("Dictionary file not found!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("File not found!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 dictionary = new HashSet<string>();
             }
 
 
         }
 
-
-       
-
+        /// <summary>
+        /// Handles the click event of the submit button when the user enters and submits a word for scoring.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void submit_btn_Click(object sender, EventArgs e)
         {
             string word = input_textBox.Text.Trim();
@@ -104,52 +112,48 @@ namespace PatrickMuorahProject2
                 {
                     validWords.Add(word);
 
-                    // Calculate points for the word
                     int wordPoints = CalculatePoints(word);
                     wordEntry.Points = wordPoints;
 
-                    validWordEntries.Add(wordEntry); // Log the word
+                    validWordEntries.Add(wordEntry);
                     score += wordPoints;
 
-                    feedback_lbl.Text = $"{word} is valid! You earned {wordPoints} points.";
+                    feedback_lbl.Text = $"{word} is a valid word! You earned {wordPoints} points.";
                     score_lbl.Text = $"Score: {score}";
                 }
                 else
                 {
-                    feedback_lbl.Text = $"{word} was already submitted.";
+                    feedback_lbl.Text = $"The word {word} was already submitted.";
                 }
             }
             else
             {
-                wordEntry.Reason = "Invalid word"; // Add specific reasons as needed
-                invalidWordEntries.Add(wordEntry); // Log the invalid word
-                feedback_lbl.Text = $"{word} is invalid!";
+                wordEntry.Reason = "Invalid word, not found in dictionary";
+                invalidWordEntries.Add(wordEntry);
+                feedback_lbl.Text = $"The word, {word} is invalid!";
             }
 
             input_textBox.Clear();
         }
 
-
+        /// <summary>
+        /// Handles the click event of the New Game button, displays a new set of random letters and resets game stats.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void newGame_btn_Click(object sender, EventArgs e)
         {
             DisplayRandomLetters();
 
-            // Reset and start the timer
             remainingTime = gameDuration;
             timer_lbl.Text = $"Time: {remainingTime / 60:D2}:{remainingTime % 60:D2}";
             gameTimer.Start();
 
-            // Reset other game states
             validWords.Clear();
             validWordEntries.Clear();
             invalidWordEntries.Clear();
             score = 0;
             score_lbl.Text = "Score: 0";
-        }
-
-        private void feedback_lbl_Click(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
         }
 
         private void DisplayRandomLetters()
