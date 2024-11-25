@@ -384,9 +384,13 @@ namespace PatrickMuorahProject2
             letters_lbl.Text = string.Join(" ", letters);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         private List<HighScore> LoadHighScores()
         {
-            string filePath = "highscores.txt";
+            string filePath = "C:\\Users\\Muorah Patrick\\source\\repos\\PatrickMuorahProject2\\PatrickMuorahProject2\\highscores.txt";
             var highScores = new List<HighScore>();
 
             if (File.Exists(filePath))
